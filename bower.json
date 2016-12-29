@@ -1,0 +1,29 @@
+{
+  "name": "ADRC",
+  "homepage": "https://github.com/dgutman/ADRCPathViewer",
+  "authors": [
+    "David Gutman <dagutman@gmail.com>"
+  ],
+  "description": "Pulls dependencies for dsa portal",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "adrc",
+    "osd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "fontawesome#^4.5.0",
+    "openseadragon": "2.1.0",
+    "webix": "^3.3.2",
+    "requirejs": "^2.2.0",
+    "jquery": "^3.1.0"
+  }
+}
