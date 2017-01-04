@@ -2,14 +2,7 @@ define("ui/main", ["ui/header", "ui/tabby", "ui/filters", "ui/slidenav", "ui/too
 
     function init() {
         filters.init();
-
-        /*viewerPanel = {
-            id: "viewer_panel",
-            rows: [toolbar.buttons, {
-                view: "template",
-                content: "image_viewer"
-            }]
-        };*/
+		
 
         webix.ui(metadata.view);
 
@@ -45,14 +38,7 @@ define("ui/main", ["ui/header", "ui/tabby", "ui/filters", "ui/slidenav", "ui/too
             container: "main_layout",
             id: "root",
             rows: [
-                header.view, tabby.view/*, {
-                    cols: [
-                        slidenav.view, {
-                            view: "resizer"
-                        },
-                        viewerPanel
-                    ]
-                }*/
+                header.view, tabby.view
             ]
         });
 

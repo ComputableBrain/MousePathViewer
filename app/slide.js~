@@ -3,11 +3,12 @@ define("slide", ["pubsub", "config", "zoomer", "jquery", "webix"], function(pubs
     var slide = {
         aBtn: null,
         mTable: null,
-        aTable: null,
+        //aTable: null,
         iTable: null,
         lBox: null,
         files: null,
 
+		//Zoom and coords are used for sharing a link to a slide; Item comes from GIRDER
         init: function(item, zoom, coords) {
             $.extend(this, item);
             var itemId = this._id;
@@ -16,7 +17,7 @@ define("slide", ["pubsub", "config", "zoomer", "jquery", "webix"], function(pubs
             this.zoom = zoom;
             this.pan = coords;
             this.aBtn = $$("aperio_import_btn");
-            this.aTable = $$("aperio_files_table");
+            //this.aTable = $$("aperio_files_table");
             this.mTable = $$("clinical_metadata_table");
             this.iTable = $$("image_metadata_table");
             this.lBox = $$("link_to_share");
@@ -116,8 +117,8 @@ define("slide", ["pubsub", "config", "zoomer", "jquery", "webix"], function(pubs
 
         initDataViews: function() {
             //this.annotations.length > 0 ? this.aBtn.enable() : this.aBtn.disable();
-            this.aTable.clearAll();
-            this.aTable.define("data", this.annotations);
+            //this.aTable.clearAll();
+            //this.aTable.define("data", this.annotations);
 
             this.iTable.clearAll();
             this.iTable.define("data", this.metadata.image);

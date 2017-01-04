@@ -9,9 +9,7 @@ viewerPanel = {
         };
 
 var tabby = {
-	view: "tabview",
-	//width: ,
-	//height: 5000,	
+	view: "tabview",	
   	cells: [
     		{
       			header: "WSI Images",

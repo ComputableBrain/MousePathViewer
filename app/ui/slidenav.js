@@ -33,7 +33,7 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix"], function(config, s
         },
         on: {
             "onChange": function(id) {
-				//console.log(id);
+				
                 $$("thumbnail_search").setValue("");
                 var item = this.getPopup().getBody().getItem(id);              
 
@@ -41,7 +41,7 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix"], function(config, s
                 $$("thumbnails_panel").clearAll();
                 $$("thumbnails_panel").setPage(0);
                 $$("thumbnails_panel").load(url);
-				//console.log(url);
+				
 				
             },
             "onAfterRender": function() {
@@ -49,7 +49,7 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix"], function(config, s
                  $.get(config.BASE_URL + "/resource/lookup?path=/collection/" + config.COLLECTION_NAME)
                     .then(function(collection) {
                         //get the folders (cohorts) for that collection
-			//console.log(collection);
+			
                         return $.get(config.BASE_URL + "/folder?parentType=collection&parentId=" + collection._id);
                     }).then(function(folders) {
                         var foldersMenu = $$("slideset_list").getPopup().getList();
@@ -57,7 +57,7 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix"], function(config, s
                         foldersMenu.parse(folders);
                         $$("slideset_list").setValue(folders[0].id);
                         url = config.BASE_URL + "/item?folderId="+folders[0]._id+"&limit=500";
-			console.log(url);
+			
 			$$("thumbnails_panel").clearAll();
                 	$$("thumbnails_panel").setPage(0);
                 	$$("thumbnails_panel").load(url);
@@ -75,6 +75,62 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix"], function(config, s
         
     };
 
+
+
+scroll = {	view:"scrollview", 
+  			id:"scrollview",
+			//margin-left: "18px",
+			//margin-top: "18px", 
+			css: "myClass",
+  			scroll:"y", 
+  			height: 160, 
+  			width: 100, 
+			body:{   			
+   }
+};
+
+
+scroll2 = {	view:"scrollview", 
+  			id:"scrollview",
+			//margin-left: "18px",
+			//margin-top: "18px", 
+			//css: "myClass", 
+  			scroll:"y", 
+  			height: 160, 
+  			width: 100, 		
+			body:{
+				 view:"datatable",
+				scroll: "false", 
+				autowidth: "true",
+    			columns:[
+        				{ id:"property",    header:"property", width:150},
+        				{ id:"value",   header:"value",    width:150}
+    					],
+    			data: [
+        				{ property:"Mouse Position", value:"NA"},
+        				{ property:"Image Dimentsions", value:"1920 X 1080"}
+    				]
+     			
+   			}
+};
+
+group = {cols: [{view:"button", label:"Group"}, {view:"button", label:"UnGroup"}]};
+
+group2 = {rows: 
+			[
+				{cols: [{view:"button", label:"SB2"}, {view:"button", label:"SB3"}, {view:"button", label:"CTRL1"}]}, 
+				{cols: [{view:"button", label:"CTRL3"}, {view:"button", label:"CTRL4"}, {view:"button", label:"RN1"}]}
+		]};
+
+group3 = {rows: 
+			[
+				{cols: [{view:"button", label:"TB1"}, {view:"button", label:"TB2"}, {view:"button", label:"TB3"}]}, 
+				{cols: [{view:"button", label:"TB5"}, {view:"button", label:"bleh"}, {view:"button", label:"schmuck"}]}
+		]};
+
+
+
+
     //slides panel is the left panel, contains two rows 
     //containing the slide group dropdown and the thumbnails panel 
     var wideIcon = "<span class='aligned wide webix_icon fa-plus-circle'></span>";
@@ -82,7 +138,6 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix"], function(config, s
       
     slidesPanel = {
         id: "slidenav_panel",
-        header: "Slide Controls",
         header: "Slides " + wideIcon + narrowIcon,
         headerAlt: "Expand the view",
         onClick:{
@@ -101,7 +156,7 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix"], function(config, s
         },
         body: {
             rows: [
-                dropdown, filter, thumbnailsPanel
+                dropdown, filter, scroll, scroll2, group, {height:20},group2,{height:10}, group3,  thumbnailsPanel
             ]
         },
         width: 220
@@ -109,10 +164,7 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix"], function(config, s
 
     
 
-    function hello(){
-        console.log("hello");
-    }
-
+   
     return {
         view: slidesPanel
     }

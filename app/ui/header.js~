@@ -46,7 +46,7 @@ define("ui/header", function() {
                     borderless: true,
                     template: "<img src='img/CDSA_Slide_50.png' height='40'/>",
                     width: 200
-                }, {},
+                }, /*{},*/
                 menu, {
                     view: "template",
                     borderless: true,

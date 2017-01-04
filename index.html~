@@ -17,8 +17,7 @@
 	</script>
 	<style>
 		.myClass {
-    			margin-left: 17px;
-				margin-top: 17px;
+    			margin: 17px;
 				}
 	</style>
 </head>
