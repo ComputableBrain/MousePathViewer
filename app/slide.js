@@ -1,4 +1,4 @@
-define("slide", ["pubsub", "config", "zoomer", "jquery", "webix"], function(pubsub, config, viewer, $) {
+define("slide", ["pubsub", "config", "overlay", "jquery", "webix"], function(pubsub, config, overlay, $) {
 
     var slide = {
         aBtn: null,
@@ -56,7 +56,7 @@ define("slide", ["pubsub", "config", "zoomer", "jquery", "webix"], function(pubs
             };
 
             pubsub.publish("SLIDE", this);
-            viewer.open(tileSource);
+            overlay.viewer.open(tileSource);
 
             return this;
         },

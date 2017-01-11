@@ -12,7 +12,7 @@ require = {
         "slide": "app/slide",
         "app": "app/app",
 		"overlay": "lib/openseadragon-fabricjs-overlay",
-		"fabric":"lib/fabricjs.min"
+		"fabric":"lib/fabric"
     },
 
     packages: [{

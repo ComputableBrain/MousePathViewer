@@ -8,7 +8,7 @@ define("slide", ["pubsub", "config", "zoomer", "jquery", "webix"], function(pubs
         lBox: null,
         files: null,
 
-		//Zoom and coords are used for sharing a link to a slide; Item comes from GIRDER
+		//Zoom and coords are used for sharing a link to a slide and uses routes; Item comes from GIRDER
         init: function(item, zoom, coords) {
             $.extend(this, item);
             var itemId = this._id;
