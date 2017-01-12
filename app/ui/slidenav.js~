@@ -18,7 +18,7 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix"], function(config, s
         }
     };
 
-    
+    console.log("hello");
 
     //dropdown for slide groups 
     //Data is pulled from DAS webservice
@@ -156,13 +156,13 @@ group3 = {rows:
         },
         body: {
             rows: [
-                dropdown, filter, scroll, scroll2, group,group2,{height:10}, group3,  thumbnailsPanel
+                dropdown, filter, scroll, scroll2, group, {height:20},group2,{height:10}, group3,  thumbnailsPanel
             ]
         },
         width: 220
     };
 
-    
+   
 
    
     return {

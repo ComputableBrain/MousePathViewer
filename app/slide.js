@@ -1,5 +1,5 @@
 define("slide", ["pubsub", "config", "overlay", "jquery", "webix"], function(pubsub, config, overlay, $) {
-
+	//console.log(overlay);
     var slide = {
         aBtn: null,
         mTable: null,
@@ -38,6 +38,7 @@ define("slide", ["pubsub", "config", "overlay", "jquery", "webix"], function(pub
 
         initViewer: function(tiles) {
             itemId = this._id;
+			console.log("hello");
             this.tiles = tiles;
             zoom = this.zoom;
             pan = this.pan;
@@ -56,6 +57,8 @@ define("slide", ["pubsub", "config", "overlay", "jquery", "webix"], function(pub
             };
 
             pubsub.publish("SLIDE", this);
+			
+		
             overlay.viewer.open(tileSource);
 
             return this;

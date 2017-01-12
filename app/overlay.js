@@ -1,20 +1,19 @@
-define("zoomer", ["osd",  "scalebar", "jquery", "overlay", "fabric"],
-    function(osd, scalebar, $) {
+define("overlay", ["osd", "scalebar", "jquery", "fabric"], function(osd, scalebar, $, fabric) {
 
 
 
-		var overlay =  {
+		var overlay = { 
+		init: function() {
 			var self = this;
 
-            this.viewer = osd({
-            id: 'image_viewer',
-            prefixUrl: "bower_components/openseadragon/built-openseadragon/openseadragon/images/",
-            navigatorPosition: "BOTTOM_RIGHT",
-            showNavigator: true,
-            tileSources: "http://node15.cci.emory.edu/cgi-bin/iipsrv.fcgi?DeepZoom=/var/www/CDSA/CDSA_Logo_v1.tif.dzi.tif.dzi"
-        });
-
-
+            	this.viewer = osd({
+            	id: 'image_viewer',
+            	prefixUrl: "bower_components/openseadragon/built-openseadragon/openseadragon/images/",
+            	navigatorPosition: "BOTTOM_RIGHT",
+            	showNavigator: true,
+            	tileSources: "http://node15.cci.emory.edu/cgi-bin/iipsrv.fcgi?DeepZoom=/var/www/CDSA/CDSA_Logo_v1.tif.dzi.tif.dzi"
+        	});
+					
 
 
 			this.viewer.scalebar({
@@ -34,9 +33,9 @@ define("zoomer", ["osd",  "scalebar", "jquery", "overlay", "fabric"],
 
 		// initialize overlay
                     
-		var overlay = this.viewer.fabricjsOverlay();
-		var canvas = overlay.fabricCanvas();
-		console.dir(canvas);
+		var overlay2 = this.viewer.fabricjsOverlay();
+		var canvas = overlay2.fabricCanvas();
+		//console.dir(canvas);
 
         // add fabric rectangle
 		canvas.selection = false;
@@ -112,13 +111,17 @@ define("zoomer", ["osd",  "scalebar", "jquery", "overlay", "fabric"],
            
                     
                     $(window).resize(function() {
-                        overlay.resize();
-                        overlay.resizecanvas();
+                        overlay2.resize();
+                        overlay2.resizecanvas();
                     });
-                }
+                };
+
+		console.log("hello");
 
        
 
         return overlay;
 
+}
+console.log(overlay);
 });

@@ -11,8 +11,9 @@ require = {
         "zoomer": "app/zoomer",
         "slide": "app/slide",
         "app": "app/app",
-		"overlay": "lib/openseadragon-fabricjs-overlay",
-		"fabric":"lib/fabricjs.min"
+		"fabric":"lib/fabricjs.min",
+		"overlay": "lib/openseadragon-fabricjs-overlay"
+		
     },
 
     packages: [{
@@ -21,6 +22,7 @@ require = {
     }],
 
     shim: {
-        "scalebar": ["osd"]     
+        "scalebar": ["osd"],
+		"overlay": ["fabric","osd"]     
     }
 };
