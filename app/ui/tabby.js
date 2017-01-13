@@ -8,6 +8,8 @@ viewerPanel = {
             	   content: "image_viewer"}]
         };
 
+data = "hello";
+
 var tabby = {
 	view: "tabview",	
   	cells: [

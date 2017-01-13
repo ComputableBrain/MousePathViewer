@@ -1,6 +1,6 @@
 define("ui/slidenav", ["config", "slide", "jquery", "webix"], function(config, slide, $, aperio) {
 
-    var thumbnailsPanel = {
+    thumbnailsPanel = {
         view: "dataview",
         id: "thumbnails_panel",
         select: true,        
@@ -156,7 +156,7 @@ group3 = {rows:
         },
         body: {
             rows: [
-                dropdown, filter, scroll, scroll2, group, {height:20},group2,{height:10}, group3,  thumbnailsPanel
+                dropdown, filter, scroll, scroll2, group, {view:"button", label:"Draggable"},group2,{height:10}, group3,  thumbnailsPanel
             ]
         },
         width: 220

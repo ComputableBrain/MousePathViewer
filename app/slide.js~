@@ -59,7 +59,7 @@ define("slide", ["pubsub", "config", "overlay", "jquery", "webix"], function(pub
             pubsub.publish("SLIDE", this);
 			
 		
-            //overlay.viewer.open(tileSource);
+            overlay.viewer.open(tileSource);
 
             return this;
         },

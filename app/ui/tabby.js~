@@ -2,10 +2,10 @@ define("ui/tabby",["ui/testdata", "ui/slidenav", "ui/toolbar"], function(testdat
 
 viewerPanel = {
             id: "viewer_panel",
-            rows: [toolbar.buttons, {
-                view: "template",
-                content: "image_viewer"
-            }]
+            rows: [toolbar.buttons, 
+				{
+            	   view: "template",
+            	   content: "image_viewer"}]
         };
 
 var tabby = {
