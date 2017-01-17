@@ -24,7 +24,8 @@ define("overlay", ["osd", "scalebar", "jquery", "fabricjs", "zoomer"], function(
 					  opacity: 0.8,
                       width: 1000,
                       height: 1000,
-					  fill: '#FFA500'					  	
+					  fill: '#FFA500',
+					  selectable: true					  	
                     }); 
 
 					var rect2 = new fabric.Rect({
@@ -78,7 +79,7 @@ define("overlay", ["osd", "scalebar", "jquery", "fabricjs", "zoomer"], function(
 					});
 
 
-                    canvas.add(group);           
+                   // canvas.add(group);           
                    
                     
            
@@ -93,6 +94,8 @@ define("overlay", ["osd", "scalebar", "jquery", "fabricjs", "zoomer"], function(
 
        init();
 
-      
+  // 	return{
+		//init: init
+	//}   
 
 });

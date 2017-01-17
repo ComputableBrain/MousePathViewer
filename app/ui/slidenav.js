@@ -130,6 +130,100 @@ group3 = {rows:
 
 
 
+button1 = {
+    view: "button",
+    label: "Draggable",
+    on: {
+        'onItemClick': function(id, e) {
+            //webix.message(id + ' ' + e);
+			//console.log(id);
+			//console.log(e);
+			arr = [];
+			
+			
+			var rect1 = new fabric.Rect({
+                      left: 800,
+                      top: 0,
+					  opacity: 0.8,
+                      width: 500,
+                      height: 500,
+					  fill: '#FFA500',
+					  selectable: true					  	
+                    }); 
+
+			arr.push(rect1);
+			var rect2 = new fabric.Rect({
+					  left: 1301,
+                      top: 0,
+					  opacity: 0.8,
+                      width: 500,
+                      height: 500,
+					  fill: '#FF3400',
+					  selectable: true
+					});
+			arr.push(rect2);
+		   var rect3 = new fabric.Rect({
+					  left: 1801,
+                      top: 0,
+					  opacity: 0.8,
+                      width: 500,
+                      height: 500,
+					  fill: '#FF88AB',
+					  selectable: true
+					});
+			arr.push(rect3);
+			var rect4 = new fabric.Rect({
+					  left: 800,
+                      top: 501,
+					  opacity: 0.8,
+                      width: 500,
+                      height: 500,
+					  fill: '#FF725B',
+					  selectable: true
+					});
+			arr.push(rect4);
+			var rect5 = new fabric.Rect({
+					  left: 1301,
+                      top: 501,
+					  opacity: 0.8,
+                      width: 500,
+                      height: 500,
+					  fill: '#FF81A7',
+					  selectable: true
+					});
+			arr.push(rect5);
+			var rect6 = new fabric.Rect({
+					  left: 1801,
+                      top: 501,
+					  opacity: 0.8,
+                      width: 500,
+                      height: 500,
+					  fill: '#FF1891',
+					  selectable: true
+					});
+			arr.push(rect6);
+
+		  var group = new fabric.Group(arr, {
+ 						 left: 800,
+						  top: 10,					 
+					});
+
+
+
+
+			//console.log($('#osd-overlaycanvas-1')[0]);
+			//var canvasEl = document.getElementById('osd-overlaycanvas-1');
+			//var ctx = canvasEl.getContext('2d');
+			//ctx.lineWidth = 500;
+			//ctx.strokeStyle = '#ff0000';
+			//ctx.strokeRect(100, 100, 20, 20);
+			
+			var canvas = new fabric.Canvas('osd-overlaycanvas-1');
+			canvas.add(group);
+
+        }
+    }
+};
 
     //slides panel is the left panel, contains two rows 
     //containing the slide group dropdown and the thumbnails panel 
@@ -156,7 +250,7 @@ group3 = {rows:
         },
         body: {
             rows: [
-                dropdown, filter, scroll, scroll2, group, {view:"button", label:"Draggable"},group2,{height:10}, group3,  thumbnailsPanel
+                dropdown, filter, scroll, scroll2, group, button1,group2,{height:10}, group3,  thumbnailsPanel
             ]
         },
         width: 220
