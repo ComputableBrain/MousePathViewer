@@ -204,7 +204,7 @@ button1 = {
 			arr.push(rect6);
 
 		  var group = new fabric.Group(arr, {
- 						 left: 0,
+ 						 left: 800,
 						  top: 10,					 
 					});
 

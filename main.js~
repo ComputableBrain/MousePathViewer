@@ -8,6 +8,7 @@ require = {
         "jquery": "bower_components/jquery/dist/jquery",
         "scalebar": "lib/openseadragon-scalebar",
         "config": "app/config",
+		"jqueryui": "bower_components/jquery-ui/jquery-ui.js",
         "zoomer": "app/zoomer",
         "slide": "app/slide",
         "app": "app/app",
@@ -25,6 +26,6 @@ require = {
     shim: {
         "scalebar": ["osd"],
 		"overlay" : ["fabricoverlay"],
-		//"fabricoverlay": ["osd", "fabricjs"]     
+		"fabricoverlay": ["osd", "fabricjs"]     
     }
 };
