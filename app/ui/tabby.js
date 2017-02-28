@@ -13,19 +13,7 @@ data = "hello";
 var tabby = {
 	view: "tabview",	
   	cells: [
-    		{
-      			header: "WSI Images",
-				body:{
-							view:"list",
-							template:"#rank#. #title# <div style='padding-left:18px'> Year:#year#, votes:#votes# </div>",
-							type:{
-								height:60
-							},
-							select:true,
-							data:testdata.data
-						}
-      			
-    		},
+    		
 			{
       			header: "Grid",
 				body:{

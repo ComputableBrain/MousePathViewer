@@ -1,4 +1,4 @@
-define("ui/slidenav", ["config", "slide", "jquery", "webix"], function(config, slide, $, aperio) {
+define("ui/slidenav", ["config", "slide", "jquery", "webix", "overlay"], function(config, slide, $, aperio, overlay) {
 
     thumbnailsPanel = {
         view: "dataview",
@@ -125,7 +125,7 @@ group2 = {rows:
 group3 = {rows: 
 			[
 				{cols: [{view:"button", label:"TB1"}, {view:"button", label:"TB2"}, {view:"button", label:"TB3"}]}, 
-				{cols: [{view:"button", label:"TB5"}, {view:"button", label:"bleh"}, {view:"button", label:"schmuck"}]}
+				{cols: [{view:"button", label:"TB5"}, {view:"button", label:"HF"}, {view:"button", label:"HF"}]}
 		]};
 
 
@@ -142,72 +142,75 @@ button1 = {
 			
 			
 			var rect1 = new fabric.Rect({
-                      left: 800,
-                      top: 0,
-					  opacity: 0.8,
-                      width: 500,
-                      height: 500,
-					  fill: '#FFA500',
-					  selectable: true					  	
-                    }); 
+        left: 0,
+        top: 0,
+      opacity: 0.8,
+        width: 18000,
+        height: 18000,
+      fill: '#FFA500',
+      selectable: true
+                    
+      }); 
 
-			arr.push(rect1);
-			var rect2 = new fabric.Rect({
-					  left: 1301,
-                      top: 0,
-					  opacity: 0.8,
-                      width: 500,
-                      height: 500,
-					  fill: '#FF3400',
-					  selectable: true
-					});
-			arr.push(rect2);
-		   var rect3 = new fabric.Rect({
-					  left: 1801,
-                      top: 0,
-					  opacity: 0.8,
-                      width: 500,
-                      height: 500,
-					  fill: '#FF88AB',
-					  selectable: true
-					});
-			arr.push(rect3);
-			var rect4 = new fabric.Rect({
-					  left: 800,
-                      top: 501,
-					  opacity: 0.8,
-                      width: 500,
-                      height: 500,
-					  fill: '#FF725B',
-					  selectable: true
-					});
-			arr.push(rect4);
-			var rect5 = new fabric.Rect({
-					  left: 1301,
-                      top: 501,
-					  opacity: 0.8,
-                      width: 500,
-                      height: 500,
-					  fill: '#FF81A7',
-					  selectable: true
-					});
-			arr.push(rect5);
-			var rect6 = new fabric.Rect({
-					  left: 1801,
-                      top: 501,
-					  opacity: 0.8,
-                      width: 500,
-                      height: 500,
-					  fill: '#FF1891',
-					  selectable: true
-					});
-			arr.push(rect6);
+  arr.push(rect1);
+  var rect2 = new fabric.Rect({
+        left: 18001,
+          top: 0,
+        opacity: 0.8,
+          width: 18000,
+          height: 18000,
+        fill: '#FF3400',
+        selectable: true
+      });
+  arr.push(rect2);
+  var rect3 = new fabric.Rect({
+        left: 36001,
+          top: 0,
+        opacity: 0.8,
+          width: 18000,
+          height: 18000,
+        fill: '#FF88AB',
+        selectable: true
+      });
+  arr.push(rect3);
+  var rect4 = new fabric.Rect({
+        left: 0,
+          top: 18001,
+        opacity: 0.8,
+          width: 18000,
+          height: 18000,
+        fill: '#FF725B',
+        selectable: true
+      });
+  arr.push(rect4);
+  var rect5 = new fabric.Rect({
+        left: 18001,
+          top: 18001,
+        opacity: 0.8,
+          width: 18000,
+          height: 18000,
+        fill: '#FF81A7',
+        selectable: true
+      });
+  arr.push(rect5);
+  var rect6 = new fabric.Rect({
+        left: 36001,
+          top: 18001,
+        opacity: 0.8,
+          width: 18000,
+          height: 18000,
+        fill: '#FF1891',
+        selectable: true
+      });
+  arr.push(rect6);
 
-		  var group = new fabric.Group(arr, {
- 						 left: 800,
-						  top: 10,					 
-					});
-
+  group = new fabric.Group(arr, {
+         left: 0,
+         top: 0,
+         originX: "center", 
+         originY: "center",
+         angle: 0        
+      });
 
 
 
@@ -218,8 +221,112 @@ button1 = {
 			//ctx.strokeStyle = '#ff0000';
 			//ctx.strokeRect(100, 100, 20, 20);
 			
-			var canvas = new fabric.Canvas('osd-overlaycanvas-1');
-			canvas.add(group);
+			//var canvas = new fabric.Canvas('osd-overlaycanvas-1');
+      //console.log(overlay);
+			canvas = overlay.canvas;
+      overlay.canvas.add(group);
+
+
+
+
+function drawCircle(top, left, height, width){
+
+  //Circle 1
+  leftCorner = left -2000 - (width / 2);
+  topCorner = top - 2000 - (height / 2);
+
+  //Circle 2
+  leftCorner2 = leftCorner + (width / 3);
+
+  //Circle 3
+  leftCorner3 = leftCorner + (2 * width / 3);
+
+  //Circle 4
+  leftCorner4 = leftCorner + width;
+
+  //Circle 5-8 top
+  topMiddle = top - 2000;
+
+  //Circle 9-12 top 
+  topTop = top - 2000 + (height / 2)
+  
+  var circle1 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner, top: topCorner
+  });
+  canvas.add(circle1);
+
+  var circle2 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner2, top: topCorner
+  });
+  canvas.add(circle2);
+
+  var circle3 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner3, top: topCorner
+  });
+  canvas.add(circle3);
+
+  var circle4 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner4, top: topCorner
+  });
+  canvas.add(circle4);
+
+  var circle5 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner, top: topMiddle
+  });
+  canvas.add(circle5);
+
+  var circle6 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner2, top: topMiddle
+  });
+  canvas.add(circle6);
+
+  var circle7 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner3, top: topMiddle
+  });
+  canvas.add(circle7);
+
+  var circle8 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner4, top: topMiddle
+  });
+  canvas.add(circle8);
+
+  var circle9 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner, top: topTop
+  });
+  canvas.add(circle9);
+
+  var circle10 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner2, top: topTop
+  });
+  canvas.add(circle10);
+
+  var circle11 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner3, top: topTop
+  });
+  canvas.add(circle11);
+
+  var circle12 = new fabric.Circle({
+      radius: 2000, fill: 'green', left: leftCorner4, top: topTop
+  });
+  canvas.add(circle12);
+
+
+
+
+
+}
+
+
+
+
+
+    drawCircle(group.top, group.left, group.height, group.width);
+
+
+
+
+
+
 
         }
     }

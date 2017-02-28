@@ -107,7 +107,7 @@ define("zoomer", ["osd",  "scalebar", "jquery", "jqueryui"],
 					});
 				
 			
-			var canvas = new fabric.Canvas('.upper-canvas');
+			var canvas = new fabric.Canvas('osd-overlaycanvas-1');
 			canvas.add(group);
 			console.log(group);
 

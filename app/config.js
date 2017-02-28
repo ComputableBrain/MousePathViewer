@@ -10,14 +10,14 @@ define("config", function() {
     var XML_BASE_URL = "http://digitalslidearchive.emory.edu:8001"
 
     //Girder collection name
-    var COLLECTION_ID = "585ab2d2f8c2ef4d18468dae";
+    var COLLECTION_ID = "5899ff6192ca9a000c5156f7";
     var COLLECTION_NAME = "MOUSE_GLIOMA";
 
     //Default folder ID that is under the COLLECTION_NAME
-    var DEFAULT_FOLDER_ID = "585ab300f8c2ef4d18468daf";
+    var DEFAULT_FOLDER_ID = "58b59ed492ca9a000beee3df";
 
     //Default folder ID that is under the COLLECTION_NAME
-    var DEFAULT_PATIENT_ID = "585ab300f8c2ef4d18468daf";
+    var DEFAULT_PATIENT_ID = "58b59ed492ca9a000beee3df";
 
     return {
         BASE_URL: BASE_URL,
