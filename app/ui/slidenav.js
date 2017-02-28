@@ -99,7 +99,8 @@ scroll2 = {	view:"scrollview",
   			height: 160, 
   			width: 100, 		
 			body:{
-				 view:"datatable",
+        id: "metatable",
+				view:"datatable",
 				scroll: "false", 
 				autowidth: "true",
     			columns:[
@@ -107,12 +108,14 @@ scroll2 = {	view:"scrollview",
         				{ id:"value",   header:"value",    width:150}
     					],
     			data: [
-        				{ property:"Mouse Position", value:"NA"},
-        				{ property:"Image Dimentsions", value:"1920 X 1080"}
+        				{id:"mouse_pos", property:"Mouse Position", value:"NA"},
+        				{id: "image_dim", property:"Image Dimentsions", value:"1920 X 1080"}
     				]
      			
    			}
 };
+
+console.log($$('scrollview'));
 
 group = {cols: [{view:"button", label:"Group"}, {view:"button", label:"UnGroup"}]};
 

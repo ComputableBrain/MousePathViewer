@@ -26,7 +26,7 @@ define("overlay", ["osd", "scalebar", "jquery", "fabricjs", "zoomer"], function(
 var overlay = viewer.fabricjsOverlay();
 var canvas = overlay._fabricCanvas;
 
-console.log(canvas);
+//console.log(canvas);
 
 
 arr = [];
@@ -238,8 +238,8 @@ var masterHandler = function (evt) {
     var movingObject = evt.target;
     //console.log(movingObject.get('left'), movingObject.get('top'));
     
-    console.log("ScaleX = " + canvas._objects[0].scaleX );
-    console.log("ScaleY = " + canvas._objects[0].scaleY );
+    //console.log("ScaleX = " + canvas._objects[0].scaleX );
+    //console.log("ScaleY = " + canvas._objects[0].scaleY );
 
     updateCircle(group.top, group.left, group.height, group.width, group.scaleX, group.scaleY);
 
@@ -262,7 +262,7 @@ function onImageOpen(){
   var imagePoint = viewer.viewport.viewportToImageCoordinates(viewer.viewport.getCenter());
   //console.log(viewer.viewport.getCenter());
   //console.log(imagePoint);
-  group.set({left: imagePoint.x, top: imagePoint.y});   
+  //group.set({left: imagePoint.x, top: imagePoint.y});   
   //group.set({left: 0.1, top: 0.1});   
   canvas.add(group);
 
