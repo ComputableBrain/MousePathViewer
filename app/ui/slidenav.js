@@ -324,6 +324,34 @@ function drawCircle(top, left, height, width){
 
 
 
+    //viewer.addHandler('open', function() {
+
+        var tracker = new OpenSeadragon.MouseTracker({
+            element: viewer.container,
+            moveHandler: function(event) {
+                var webPoint = event.position;
+                var viewportPoint = viewer.viewport.pointFromPixel(webPoint);
+                var imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
+                var zoom = viewer.viewport.getZoom(true);
+                var imageZoom = viewer.viewport.viewportToImageZoom(zoom);
+
+                document.getElementById("position").innerHTML = 'Web:<br>' + webPoint.toString() + 
+                    '<br><br>Viewport:<br>' + viewportPoint.toString() +
+                    '<br><br>Image:<br>' + imagePoint.toString() + '<br><br>Zoom:<br>' + (Math.round(zoom * 100) / 100) + 
+                '<br><br>Image Zoom:<br>' + (Math.round(imageZoom * 100) / 100); 
+
+              document.getElementById("coord").innerHTML = "";
+
+              for (i = 1; i<=12; i+=1){
+                document.getElementById("coord").innerHTML += 'Vertex' + i + '<br>(' + parseFloat(canvas.getObjects()[i].left + 2000) + ',' + parseFloat(canvas.getObjects()[i].top + 2000) + ')<br><br>';
+              } 
+            }
+        });
+  //}
+//); 
+
+
+
 
 
 
