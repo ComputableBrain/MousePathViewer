@@ -112,14 +112,43 @@ scroll = {
 };
 
 
+clickHandler = function(){
+  
+  console.log(this);
+  if (this.data.label == "SB2"){
+    var p = new OpenSeadragon.Point(0.1,0.1);
+    viewer.viewport.panTo(p);
+    viewer.viewport.zoomTo(5);
+  } else if (this.data.label == "SB3") {
+    var p = new OpenSeadragon.Point(0.55,0.1);
+    viewer.viewport.panTo(p);
+    viewer.viewport.zoomTo(5);
+  } else if (this.data.label == "CTRL1") {
+    var p = new OpenSeadragon.Point(0.93,0.14);
+    viewer.viewport.panTo(p);
+    viewer.viewport.zoomTo(5);
+  } else if (this.data.label == "CTRL3") {
+    var p = new OpenSeadragon.Point(0.17,0.35);
+    viewer.viewport.panTo(p);
+    viewer.viewport.zoomTo(5);
+  } else if (this.data.label == "CTRL4") {
+    var p = new OpenSeadragon.Point(0.52,0.37);
+    viewer.viewport.panTo(p);
+    viewer.viewport.zoomTo(5);
+  } else {
+    var p = new OpenSeadragon.Point(0.9,0.43);
+    viewer.viewport.panTo(p);
+    viewer.viewport.zoomTo(5);
 
+  }
+}
 
 group = {cols: [{view:"button", label:"Group"}, {view:"button", label:"UnGroup"}]};
 
 group2 = {rows: 
 			[
-				{cols: [{view:"button", label:"SB2"}, {view:"button", label:"SB3"}, {view:"button", label:"CTRL1"}]}, 
-				{cols: [{view:"button", label:"CTRL3"}, {view:"button", label:"CTRL4"}, {view:"button", label:"RN1"}]}
+				{cols: [{view:"button", label:"SB2", click: clickHandler}, {view:"button", label:"SB3", click: clickHandler}, {view:"button", label:"CTRL1", click: clickHandler}]}, 
+				{cols: [{view:"button", label:"CTRL3", click: clickHandler}, {view:"button", label:"CTRL4", click: clickHandler}, {view:"button", label:"RN1", click: clickHandler}]}
 		]};
 
 group3 = {rows: 
@@ -390,14 +419,16 @@ function drawCircle(top, left, height, width){
         },
         body: {
             rows: [
-                dropdown, filter, scroll, group, button1,group2,{height:10}, group3,  thumbnailsPanel, {id: "myButton", view:"button", label:"Test", click:"myfunc"}
+                dropdown, filter, scroll, group, button1,group2,{height:10}, group3,  thumbnailsPanel, {id: "myButton", view:"button", label:"Clear", click:"myfunc"}
             ]
         },
         width: 220
     };
 
 myfunc = function(){
-            webix.message("Test");            
+            webix.message("Test"); 
+          if(typeof canvas != "undefined")
+            canvas.clear();           
         }
    
 
