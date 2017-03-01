@@ -77,45 +77,42 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix", "overlay"], functio
 
 
 
-scroll = {	view:"scrollview", 
-  			id:"scrollview",
-			//margin-left: "18px",
-			//margin-top: "18px", 
-			css: "myClass",
-  			scroll:"y", 
-  			height: 160, 
-  			width: 100, 
-			body:{   			
-   }
-};
 
 
-scroll2 = {	view:"scrollview", 
-  			id:"scrollview",
-			//margin-left: "18px",
-			//margin-top: "18px", 
-			//css: "myClass", 
-  			scroll:"y", 
-  			height: 160, 
-  			width: 100, 		
-			body:{
+scroll = {
         id: "metatable",
-				view:"datatable",
-				scroll: "false", 
+				view:"datatable",				
 				autowidth: "true",
+        height: 600,
+        header: false,
     			columns:[
-        				{ id:"property",    header:"property", width:150},
-        				{ id:"value",   header:"value",    width:150}
+        				{ id:"property",     width:150},
+        				{ id:"value",    width:150}
     					],
     			data: [
-        				{id:"mouse_pos", property:"Mouse Position", value:"NA"},
-        				{id: "image_dim", property:"Image Dimentsions", value:"1920 X 1080"}
+                {id:"web_point", property:"Web Point", value:"(0,0)"},
+                {id:"viewport_point", property:"Viewport Point", value:"(0,0)"},
+        				{id:"image_point", property:"Image Point", value:"(0,0)"},
+        				{id:"zoom", property:"Zoom", value:"1"},
+                {id:"image_zoom", property:"Image Zoom", value:"1"},
+                {id:"vertex1", property:"Vertex 1", value:"(0,0)"},
+                {id:"vertex2", property:"Vertex 2", value:"(0,0)"},
+                {id:"vertex3", property:"Vertex 3", value:"(0,0)"},
+                {id:"vertex4", property:"Vertex 4", value:"(0,0)"},
+                {id:"vertex5", property:"Vertex 5", value:"(0,0)"},
+                {id:"vertex6", property:"Vertex 6", value:"(0,0)"},
+                {id:"vertex7", property:"Vertex 7", value:"(0,0)"},
+                {id:"vertex8", property:"Vertex 8", value:"(0,0)"},
+                {id:"vertex9", property:"Vertex 9", value:"(0,0)"},
+                {id:"vertex10", property:"Vertex 10", value:"(0,0)"},
+                {id:"vertex11", property:"Vertex 11", value:"(0,0)"},
+                {id:"vertex12", property:"Vertex 12", value:"(0,0)"}
     				]
      			
-   			}
 };
 
-console.log($$('scrollview'));
+
+
 
 group = {cols: [{view:"button", label:"Group"}, {view:"button", label:"UnGroup"}]};
 
@@ -138,9 +135,7 @@ button1 = {
     label: "Draggable",
     on: {
         'onItemClick': function(id, e) {
-            //webix.message(id + ' ' + e);
-			//console.log(id);
-			//console.log(e);
+     
 			arr = [];
 			
 			
@@ -217,17 +212,9 @@ button1 = {
 
 
 
-			//console.log($('#osd-overlaycanvas-1')[0]);
-			//var canvasEl = document.getElementById('osd-overlaycanvas-1');
-			//var ctx = canvasEl.getContext('2d');
-			//ctx.lineWidth = 500;
-			//ctx.strokeStyle = '#ff0000';
-			//ctx.strokeRect(100, 100, 20, 20);
-			
-			//var canvas = new fabric.Canvas('osd-overlaycanvas-1');
-      //console.log(overlay);
-			canvas = overlay.canvas;
-      overlay.canvas.add(group);
+
+		canvas = overlay.canvas;
+    overlay.canvas.add(group);
 
 
 
@@ -254,70 +241,65 @@ function drawCircle(top, left, height, width){
   topTop = top - 2000 + (height / 2)
   
   var circle1 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner, top: topCorner
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner, top: topCorner
   });
   canvas.add(circle1);
 
   var circle2 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner2, top: topCorner
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner2, top: topCorner
   });
   canvas.add(circle2);
 
   var circle3 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner3, top: topCorner
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner3, top: topCorner
   });
   canvas.add(circle3);
 
   var circle4 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner4, top: topCorner
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner4, top: topCorner
   });
   canvas.add(circle4);
 
   var circle5 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner, top: topMiddle
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner, top: topMiddle
   });
   canvas.add(circle5);
 
   var circle6 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner2, top: topMiddle
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner2, top: topMiddle
   });
   canvas.add(circle6);
 
   var circle7 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner3, top: topMiddle
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner3, top: topMiddle
   });
   canvas.add(circle7);
 
   var circle8 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner4, top: topMiddle
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner4, top: topMiddle
   });
   canvas.add(circle8);
 
   var circle9 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner, top: topTop
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner, top: topTop
   });
   canvas.add(circle9);
 
   var circle10 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner2, top: topTop
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner2, top: topTop
   });
   canvas.add(circle10);
 
   var circle11 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner3, top: topTop
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner3, top: topTop
   });
   canvas.add(circle11);
 
   var circle12 = new fabric.Circle({
-      radius: 2000, fill: 'green', left: leftCorner4, top: topTop
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner4, top: topTop
   });
   canvas.add(circle12);
-
-
-
-
-
-}
+}//end drawCircle
 
 
 
@@ -338,18 +320,35 @@ function drawCircle(top, left, height, width){
                 var zoom = viewer.viewport.getZoom(true);
                 var imageZoom = viewer.viewport.viewportToImageZoom(zoom);
 
-                document.getElementById("position").innerHTML = 'Web:<br>' + webPoint.toString() + 
-                    '<br><br>Viewport:<br>' + viewportPoint.toString() +
-                    '<br><br>Image:<br>' + imagePoint.toString() + '<br><br>Zoom:<br>' + (Math.round(zoom * 100) / 100) + 
-                '<br><br>Image Zoom:<br>' + (Math.round(imageZoom * 100) / 100); 
+                // document.getElementById("position").innerHTML = 'Web:<br>' + webPoint.toString() + 
+                //     '<br><br>Viewport:<br>' + viewportPoint.toString() +
+                //     '<br><br>Image:<br>' + imagePoint.toString() + '<br><br>Zoom:<br>' + (Math.round(zoom * 100) / 100) + 
+                // '<br><br>Image Zoom:<br>' + (Math.round(imageZoom * 100) / 100); 
 
-              document.getElementById("coord").innerHTML = "";
+                
+                $$("metatable").updateItem("web_point", {value: webPoint.toString()});
+                $$("metatable").updateItem("image_point", {value: imagePoint.toString()});
+                $$("metatable").updateItem("viewport_point", {value: viewportPoint.toString()});
+
+                $$("metatable").updateItem("zoom", {value: (Math.round(zoom * 100) / 100)});
+                $$("metatable").updateItem("image_zoom", {value: (Math.round(imageZoom * 100) / 100)});
+
+
+              // document.getElementById("coord").innerHTML = "";
+
+              // for (i = 1; i<=12; i+=1){
+              //   document.getElementById("coord").innerHTML += 'Vertex' + i + '<br>(' + parseFloat(canvas.getObjects()[i].left + 2000) + ',' + parseFloat(canvas.getObjects()[i].top + 2000) + ')<br><br>';
+              // } 
 
               for (i = 1; i<=12; i+=1){
-                document.getElementById("coord").innerHTML += 'Vertex' + i + '<br>(' + parseFloat(canvas.getObjects()[i].left + 2000) + ',' + parseFloat(canvas.getObjects()[i].top + 2000) + ')<br><br>';
-              } 
-            }
-        });
+                var valx = Math.round(parseFloat(canvas.getObjects()[i].left + 2000)*100) / 100;
+                var valy = Math.round(parseFloat(canvas.getObjects()[i].top + 2000)*100) / 100;
+                $$("metatable").updateItem("vertex" + i, {value: "( " + valx + "," + valy + " )"});
+              } //endfor   
+
+
+            }// end moveHandler
+        }); //end MouseTracker
   //}
 //); 
 
@@ -359,9 +358,12 @@ function drawCircle(top, left, height, width){
 
 
 
-        }
-    }
-};
+        } //onItemClick
+    } //on
+}; //button
+
+
+
 
     //slides panel is the left panel, contains two rows 
     //containing the slide group dropdown and the thumbnails panel 
@@ -388,13 +390,18 @@ function drawCircle(top, left, height, width){
         },
         body: {
             rows: [
-                dropdown, filter, scroll, scroll2, group, button1,group2,{height:10}, group3,  thumbnailsPanel
+                dropdown, filter, scroll, group, button1,group2,{height:10}, group3,  thumbnailsPanel, {id: "myButton", view:"button", label:"Test", click:"myfunc"}
             ]
         },
         width: 220
     };
 
+myfunc = function(){
+            webix.message("Test");            
+        }
    
+
+  
 
    
     return {

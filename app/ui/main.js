@@ -1,6 +1,8 @@
 define("ui/main", ["ui/header", "ui/tabby", "ui/filters", "ui/slidenav", "ui/toolbar", "ui/metadata", "webix"], function(header, tabby, filters, slidenav, toolbar, metadata) {
 
     function init() {
+        
+
         filters.init();
 		
 
@@ -42,7 +44,28 @@ define("ui/main", ["ui/header", "ui/tabby", "ui/filters", "ui/slidenav", "ui/too
             ]
         });
 
+
+
+        function draw(angleVal){
+            group.set({angle: angleVal});   
+            canvas.renderAll();
+         };
+
+    
+
+        $$("slider").attachEvent("onChange", function(newv, oldv){
+            //webix.message("Value changed from: "+oldv+" to: "+newv);
+          //console.log (typeof newv);
+          draw(newv);
+        });
+
+
+
+
+
     }
+
+    
 
     return {
         init: init

@@ -318,31 +318,7 @@ viewer.addHandler('open', function() {
 
 
 
-function draw(angleVal){  
 
-  group.set({angle: angleVal});   
-    canvas.renderAll();
-  
-
-};
-
-var slider = webix.ui({
-  id: "slider", 
-  container: "slider",
-    view:"slider", 
-    label:"Angle", 
-    value:"0", 
-    min:-180, 
-    max: 180,
-    name:"s1",
-  step:1
-});
-
-$$("slider").attachEvent("onChange", function(newv, oldv){
-    //webix.message("Value changed from: "+oldv+" to: "+newv);
-  //console.log (typeof newv);
-  draw(newv);
-});
 
    
 		

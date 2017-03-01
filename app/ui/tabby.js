@@ -18,14 +18,11 @@ var tabby = {
       			header: "Grid",
 				body:{
 						
-                    cols: [
-                        slidenav.view, {
-                            view: "resizer"
-                        },
-                        viewerPanel
-                    ]              
-
-				}
+                    rows: [
+                            {cols: [ slidenav.view, { view: "resizer"}, viewerPanel ]},                        
+                            {view: "slider", id: "slider", label:"Angle", value:"0", min:-180, max: 180,  name:"s1", step:1}   
+                            ]  				
+              }
       			
       		},
     		{
