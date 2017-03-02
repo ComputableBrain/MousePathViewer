@@ -36,15 +36,22 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix", "overlay"], functio
                 //console.log("Hello0");				
                 $$("thumbnail_search").setValue("");
                 var item = this.getPopup().getBody().getItem(id);
-                console.log(item);    
+               // console.log(item);    
 
                 //"http://candygram.neurology.emory.edu:8080/api/v1/item?folderId=58b59ed492ca9a000beee3df&limit=500"          
 
                 var url = config.BASE_URL + "/item?folderId="+item._id+"&limit=50";
                 $$("thumbnails_panel").clearAll();
                 $$("thumbnails_panel").setPage(0);
-                var s = $$("thumbnails_panel").load(url);
-				        console.log(url);
+                var s = $$("thumbnails_panel").load(url, function(text, data, http_request){
+
+                  console.log(text);
+                  console.log(data);
+                  console.log(http_request);
+
+
+                });
+				       // console.log(url);
 				
             },
             "onAfterRender": function() {
