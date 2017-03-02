@@ -33,37 +33,53 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix", "overlay"], functio
         },
         on: {
             "onChange": function(id) {
-				
+                //console.log("Hello0");				
                 $$("thumbnail_search").setValue("");
-                var item = this.getPopup().getBody().getItem(id);              
+                var item = this.getPopup().getBody().getItem(id);
+                console.log(item);    
 
-                var url = config.BASE_URL + "/item?folderId="+item._id+"&limit=500";
+                //"http://candygram.neurology.emory.edu:8080/api/v1/item?folderId=58b59ed492ca9a000beee3df&limit=500"          
+
+                var url = config.BASE_URL + "/item?folderId="+item._id+"&limit=50";
                 $$("thumbnails_panel").clearAll();
                 $$("thumbnails_panel").setPage(0);
-                $$("thumbnails_panel").load(url);
-				
+                var s = $$("thumbnails_panel").load(url);
+				        console.log(url);
 				
             },
             "onAfterRender": function() {
+
+               var url = config.BASE_URL + "/folder?parentType=folder&parentId="+config.COLLECTION_ID;
+               //console.log(url);
+               //console.log($);
+               $$("slideset_list").getList().clearAll();
+               $.get(url,function(data){
+                  //$$("slideset_list").parse(data);
+
+                   var foldersMenu = $$("slideset_list").getList();
+                   foldersMenu.parse(data);
+                  //console.log(data);
+                  //console.log(parse(data));
+               })
                 //get the ID of the COLLECTION_NAME
-                 $.get(config.BASE_URL + "/resource/lookup?path=/collection/" + config.COLLECTION_NAME)
-                    .then(function(collection) {
-                        //get the folders (cohorts) for that collection
+                 // $.get(config.BASE_URL + "/resource/lookup?path=/collection/" + config.COLLECTION_NAME)
+                 //    .then(function(collection) {
+                 //        //get the folders (cohorts) for that collection
 			
-                        return $.get(config.BASE_URL + "/folder?parentType=collection&parentId=" + collection._id);
-                    }).then(function(folders) {
-                        var foldersMenu = $$("slideset_list").getPopup().getList();
-                        foldersMenu.clearAll();
-                        foldersMenu.parse(folders);
-                        $$("slideset_list").setValue(folders[0].id);
-                        url = config.BASE_URL + "/item?folderId="+folders[0]._id+"&limit=500";
+                 //        return $.get(config.BASE_URL + "/folder?parentType=collection&parentId=" + collection._id);
+                 //    }).then(function(folders) {
+                 //        var foldersMenu = $$("slideset_list").getPopup().getList();
+                 //        foldersMenu.clearAll();
+                 //        foldersMenu.parse(folders);
+                 //        $$("slideset_list").setValue(folders[0].id);
+                 //        url = config.BASE_URL + "/item?folderId="+folders[0]._id+"&limit=500";
 			
-			$$("thumbnails_panel").clearAll();
-                	$$("thumbnails_panel").setPage(0);
-                	$$("thumbnails_panel").load(url);
-                    }).done(function() {
+			              //     $$("thumbnails_panel").clearAll();
+                 //      	$$("thumbnails_panel").setPage(0);
+                 //      	$$("thumbnails_panel").load(url);
+                 //    }).done(function() {
                         
-                    });
+                 //    });
             }
         }
     };
@@ -368,12 +384,14 @@ function drawCircle(top, left, height, width){
               // for (i = 1; i<=12; i+=1){
               //   document.getElementById("coord").innerHTML += 'Vertex' + i + '<br>(' + parseFloat(canvas.getObjects()[i].left + 2000) + ',' + parseFloat(canvas.getObjects()[i].top + 2000) + ')<br><br>';
               // } 
-
-              for (i = 1; i<=12; i+=1){
-                var valx = Math.round(parseFloat(canvas.getObjects()[i].left + 2000)*100) / 100;
-                var valy = Math.round(parseFloat(canvas.getObjects()[i].top + 2000)*100) / 100;
-                $$("metatable").updateItem("vertex" + i, {value: "( " + valx + "," + valy + " )"});
-              } //endfor   
+              if (typeof canvas.getObjects()[1] != "undefined"){
+                for (i = 1; i<=12; i+=1){
+                    var valx = Math.round(parseFloat(canvas.getObjects()[i].left + 2000)*100) / 100;
+                    var valy = Math.round(parseFloat(canvas.getObjects()[i].top + 2000)*100) / 100;
+                    $$("metatable").updateItem("vertex" + i, {value: "( " + valx + "," + valy + " )"});
+                } //endfor
+              }
+                 
 
 
             }// end moveHandler
@@ -392,34 +410,27 @@ function drawCircle(top, left, height, width){
 }; //button
 
 
+var slideSelect = { cols:[
+    { view:"button", label:"Prev", type: "prev", autowidth:true},
+    {},
+    { view:"button", label:"Next", type: "next", autowidth:true}
+    ]
+  }
+
+
 
 
     //slides panel is the left panel, contains two rows 
     //containing the slide group dropdown and the thumbnails panel 
-    var wideIcon = "<span class='aligned wide webix_icon fa-plus-circle'></span>";
-    var narrowIcon = "<span class='aligned narrow webix_icon fa-minus-circle'></span>"
+   
       
     slidesPanel = {
         id: "slidenav_panel",
-        header: "Slides " + wideIcon + narrowIcon,
+        header: "Slides",
         headerAlt: "Expand the view",
-        onClick:{
-            wide:function(event, id){      
-              $$("viewer_panel").config.width = 1;
-              $$(id).config.width = null; 
-              $$("root").resize()
-              return false;
-            }, 
-            narrow:function(event, id){
-              $$(id).config.width = 220;
-              $$("viewer_panel").config.width = null; 
-              $$("root").resize()
-              return false;
-            }
-        },
         body: {
             rows: [
-                dropdown, filter, scroll, group, button1,group2,{height:10}, group3,  thumbnailsPanel, {id: "myButton", view:"button", label:"Clear", click:"myfunc"}
+                slideSelect,dropdown, filter, scroll, group, button1,group2,{height:10}, group3,  thumbnailsPanel, {id: "myButton", view:"button", label:"Clear", click:"myfunc"}
             ]
         },
         width: 220

@@ -38,7 +38,7 @@ define("slide", ["pubsub", "config", "overlay", "jquery","zoomer", "webix"], fun
 
         initViewer: function(tiles) {
             itemId = this._id;
-			console.log("hello");
+			//console.log("hello");
             this.tiles = tiles;
             zoom = this.zoom;
             pan = this.pan;

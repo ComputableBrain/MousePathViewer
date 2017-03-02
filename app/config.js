@@ -10,7 +10,7 @@ define("config", function() {
     var XML_BASE_URL = "http://digitalslidearchive.emory.edu:8001"
 
     //Girder collection name
-    var COLLECTION_ID = "5899ff6192ca9a000c5156f7";
+    var COLLECTION_ID = "58b59d7092ca9a000beee27b";
     var COLLECTION_NAME = "MOUSE_GLIOMA";
 
     //Default folder ID that is under the COLLECTION_NAME
