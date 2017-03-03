@@ -6,14 +6,18 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix", "overlay"], functio
         select: true,        
         template: "<div class='webix_strong'>#name#</div><img src='" + config.BASE_URL + "/item/#_id#/tiles/thumbnail'/>",
         datatype: "json",
-		type: {
+        height: 150,
+        pager: "thumbPager",
+		    type: {
             height: 170,
             width: 200
         },
         on: {
             "onItemClick": function(id, e, node) {
+                
                 item = this.getItem(id);
                 slide.init(item);
+                
             }
         }
     };
@@ -36,22 +40,12 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix", "overlay"], functio
                 //console.log("Hello0");				
                 $$("thumbnail_search").setValue("");
                 var item = this.getPopup().getBody().getItem(id);
-               // console.log(item);    
-
-                //"http://candygram.neurology.emory.edu:8080/api/v1/item?folderId=58b59ed492ca9a000beee3df&limit=500"          
-
-                var url = config.BASE_URL + "/item?folderId="+item._id+"&limit=50";
+                var url = config.BASE_URL + "/item?folderId="+item._id;
                 $$("thumbnails_panel").clearAll();
                 $$("thumbnails_panel").setPage(0);
-                var s = $$("thumbnails_panel").load(url, function(text, data, http_request){
-
-                  console.log(text);
-                  console.log(data);
-                  console.log(http_request);
-
-
-                });
-				       // console.log(url);
+                $.get(url, function(data){
+                  $$("thumbnails_panel").parse(data);
+                })             
 				
             },
             "onAfterRender": function() {
@@ -137,7 +131,7 @@ scroll = {
 
 clickHandler = function(){
   
-  console.log(this);
+
   if (this.data.label == "SB2"){
     var p = new OpenSeadragon.Point(0.1,0.1);
     viewer.viewport.panTo(p);
@@ -417,12 +411,36 @@ function drawCircle(top, left, height, width){
 }; //button
 
 
-var slideSelect = { cols:[
-    { view:"button", label:"Prev", type: "prev", autowidth:true},
-    {},
-    { view:"button", label:"Next", type: "next", autowidth:true}
-    ]
-  }
+// var slideSelect = { cols:[
+//     { id: "tree", view:"button", label:"Prev", type: "prev", autowidth:true, click: filter_tree},
+//     {},
+//     { view:"button", label:"Next", type: "next", autowidth:true, click: filter_tree}
+//     ]
+//   }
+
+
+ var thumbPager = {
+        view:"pager",
+        id: "thumbPager",
+        template: "<center>{common.prev()}{common.page()}/#limit# images{common.next()}</center>",
+        animate:true,
+        size:1,
+        group:1,
+        on:{
+      onItemClick: function(id, event, node){
+                //http://webix.com/snippet/e00b0728
+          // delay is necessary for getting the needed page
+            webix.delay(function(){
+              var page = $$("thumbnails_panel").getPage();                   
+              var id = $$("thumbnails_panel").getIdByIndex(page);
+              //imageName = $$("thumbnails_panel").getItem(id).name.replace(".jpg", "");
+              //selectImage(imageName);
+            })
+        }
+    }
+};
+
+
 
 
 
@@ -437,14 +455,14 @@ var slideSelect = { cols:[
         headerAlt: "Expand the view",
         body: {
             rows: [
-                slideSelect,dropdown, filter, scroll, group, button1,group2,{height:10}, group3,  thumbnailsPanel, {id: "myButton", view:"button", label:"Clear", click:"myfunc"}
+                 dropdown, thumbPager, thumbnailsPanel, filter, scroll, group, button1,group2,{height:10}, group3, {id: "myButton", view:"button", label:"Clear", click:"myfunc"}
             ]
         },
         width: 220
     };
 
 myfunc = function(){
-            webix.message("Test"); 
+           // webix.message("Test"); 
           if(typeof canvas != "undefined")
             canvas.clear();           
         }

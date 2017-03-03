@@ -264,19 +264,19 @@ function onImageOpen(){
   //console.log(imagePoint);
   //group.set({left: imagePoint.x, top: imagePoint.y});   
   //group.set({left: 0.1, top: 0.1});   
-  canvas.add(group);
+  //canvas.add(group);
 
   // console.log("Left: " + group.left);
   // console.log("Top: " + group.top);
   // console.log("Width: " + group.width);
   // console.log("Top: " + group.height);
 
-  console.log("Width = " + canvas._objects[0].width);
-  console.log("Height = " + canvas._objects[0].height);
+  //console.log("Width = " + canvas._objects[0].width);
+  //console.log("Height = " + canvas._objects[0].height);
 
-  arr2 = [];
+  
 
-  drawCircle(group.top, group.left, group.height, group.width);
+  //drawCircle(group.top, group.left, group.height, group.width);
   
 
 
@@ -287,31 +287,31 @@ function onImageOpen(){
 
 
 
-viewer.addHandler('open', function() {
+// viewer.addHandler('open', function() {
 
-        var tracker = new OpenSeadragon.MouseTracker({
-            element: viewer.container,
-            moveHandler: function(event) {
-                var webPoint = event.position;
-                var viewportPoint = viewer.viewport.pointFromPixel(webPoint);
-                var imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
-                var zoom = viewer.viewport.getZoom(true);
-                var imageZoom = viewer.viewport.viewportToImageZoom(zoom);
+//         var tracker = new OpenSeadragon.MouseTracker({
+//             element: viewer.container,
+//             moveHandler: function(event) {
+//                 var webPoint = event.position;
+//                 var viewportPoint = viewer.viewport.pointFromPixel(webPoint);
+//                 var imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
+//                 var zoom = viewer.viewport.getZoom(true);
+//                 var imageZoom = viewer.viewport.viewportToImageZoom(zoom);
 
-                document.getElementById("position").innerHTML = 'Web:<br>' + webPoint.toString() + 
-                    '<br><br>Viewport:<br>' + viewportPoint.toString() +
-                    '<br><br>Image:<br>' + imagePoint.toString() + '<br><br>Zoom:<br>' + (Math.round(zoom * 100) / 100) + 
-                '<br><br>Image Zoom:<br>' + (Math.round(imageZoom * 100) / 100); 
+//                 document.getElementById("position").innerHTML = 'Web:<br>' + webPoint.toString() + 
+//                     '<br><br>Viewport:<br>' + viewportPoint.toString() +
+//                     '<br><br>Image:<br>' + imagePoint.toString() + '<br><br>Zoom:<br>' + (Math.round(zoom * 100) / 100) + 
+//                 '<br><br>Image Zoom:<br>' + (Math.round(imageZoom * 100) / 100); 
 
-              document.getElementById("coord").innerHTML = "";
+//               document.getElementById("coord").innerHTML = "";
 
-              for (i = 1; i<=12; i+=1){
-                document.getElementById("coord").innerHTML += 'Vertex' + i + '<br>(' + parseFloat(canvas.getObjects()[i].left + 2000) + ',' + parseFloat(canvas.getObjects()[i].top + 2000) + ')<br><br>';
-              } 
-            }
-        });
-  }
-); 
+//               for (i = 1; i<=12; i+=1){
+//                 document.getElementById("coord").innerHTML += 'Vertex' + i + '<br>(' + parseFloat(canvas.getObjects()[i].left + 2000) + ',' + parseFloat(canvas.getObjects()[i].top + 2000) + ')<br><br>';
+//               } 
+//             }
+//         });
+//   }
+// ); 
 
 
 
