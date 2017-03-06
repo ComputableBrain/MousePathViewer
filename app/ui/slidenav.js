@@ -1,4 +1,5 @@
 define("ui/slidenav", ["config", "slide", "jquery", "webix", "overlay"], function(config, slide, $, aperio, overlay) {
+    var current_slide = '58b59ed892ca9a000beee3e8';
 
     thumbnailsPanel = {
         view: "dataview",
@@ -16,7 +17,10 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix", "overlay"], functio
             "onItemClick": function(id, e, node) {
                 
                 item = this.getItem(id);
+                current_slide = item._id;
+                console.log(current_slide);
                 slide.init(item);
+
                 
             }
         }
@@ -40,6 +44,7 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix", "overlay"], functio
                 //console.log("Hello0");				
                 $$("thumbnail_search").setValue("");
                 var item = this.getPopup().getBody().getItem(id);
+               
                 var url = config.BASE_URL + "/item?folderId="+item._id;
                 $$("thumbnails_panel").clearAll();
                 $$("thumbnails_panel").setPage(0);
@@ -48,18 +53,24 @@ define("ui/slidenav", ["config", "slide", "jquery", "webix", "overlay"], functio
                 })             
 				
             },
-            "onAfterRender": function() {
+            "onAfterRender": function(id) {
 
                var url = config.BASE_URL + "/folder?parentType=folder&parentId="+config.COLLECTION_ID;
                //console.log(url);
                //console.log($);
+               var item = this.getPopup().getBody().getItem(id);
+              //current_slide = item;
+              //console.log(id);
+              //console.log($$("slideset_list"));
+              //console.log(item);
+
                $$("slideset_list").getList().clearAll();
                $.get(url,function(data){
                   //$$("slideset_list").parse(data);
 
                    var foldersMenu = $$("slideset_list").getList();
                    foldersMenu.parse(data);
-                  //console.log(data);
+                
                   //console.log(parse(data));
                })
                 //get the ID of the COLLECTION_NAME
@@ -385,13 +396,37 @@ function drawCircle(top, left, height, width){
               // for (i = 1; i<=12; i+=1){
               //   document.getElementById("coord").innerHTML += 'Vertex' + i + '<br>(' + parseFloat(canvas.getObjects()[i].left + 2000) + ',' + parseFloat(canvas.getObjects()[i].top + 2000) + ')<br><br>';
               // } 
+              pointsArr = [];
+
               if (typeof canvas.getObjects()[1] != "undefined"){
+                
                 for (i = 1; i<=12; i+=1){
                     var valx = Math.round(parseFloat(canvas.getObjects()[i].left + 2000)*100) / 100;
                     var valy = Math.round(parseFloat(canvas.getObjects()[i].top + 2000)*100) / 100;
                     $$("metatable").updateItem("vertex" + i, {value: "( " + valx + "," + valy + " )"});
-                } //endfor
+                    pointsArr.push([valx, valy]);
+
+
+                }//endfor
+
+                $.ajax({
+                    url: 'http://candygram.neurology.emory.edu:8080/api/v1/item/' + current_slide +'/metadata',
+                    type: 'PUT',
+                    data: pointsArr,
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR);
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                    }
+                });
+
+                 //endfor
               }
+
+
                  
 
 
