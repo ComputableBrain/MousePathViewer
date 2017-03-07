@@ -1,4 +1,4 @@
-define("ui/slidenav", ["config", "slide", "jquery", "webix", "overlay"], function(config, slide, $, aperio, overlay) {
+define("ui/slidenav", ["config", "slide", "jquery", "overlay", "webix"], function(config, slide, $, overlay) {
     var current_slide = '58b59ed892ca9a000beee3e8';
 
     thumbnailsPanel = {
@@ -179,11 +179,11 @@ group2 = {rows:
 				{cols: [{view:"button", label:"CTRL3", click: clickHandler}, {view:"button", label:"CTRL4", click: clickHandler}, {view:"button", label:"RN1", click: clickHandler}]}
 		]};
 
-group3 = {rows: 
-			[
-				{cols: [{view:"button", label:"TB1"}, {view:"button", label:"TB2"}, {view:"button", label:"TB3"}]}, 
-				{cols: [{view:"button", label:"TB5"}, {view:"button", label:"HF"}, {view:"button", label:"HF"}]}
-		]};
+// group3 = {rows: 
+// 			[
+// 				{cols: [{view:"button", label:"TB1"}, {view:"button", label:"TB2"}, {view:"button", label:"TB3"}]}, 
+// 				{cols: [{view:"button", label:"TB5"}, {view:"button", label:"HF"}, {view:"button", label:"HF"}]}
+// 		]};
 
 
 
@@ -409,25 +409,25 @@ function drawCircle(top, left, height, width){
 
                 }//endfor
 
-                $.ajax({
-                    url: 'http://candygram.neurology.emory.edu:8080/api/v1/item/' + current_slide +'/metadata',
-                    type: 'PUT',
-                    dataType: "json",
-                    contentType: "application/json",
-                    headers: {'Girder-Token': 'jXmOkbX3pHphEnG4mU2RdMX8IIYFFkRnK5oFuoZDEDCpKZh87Z3PGjC5mZrpfP1H'},
-                    data: JSON.stringify({coords: pointsArr}),
-                    success: function(result) {
-                        console.log(result);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown){
-                        console.log(jqXHR);
-                        console.log(textStatus);
-                        console.log(errorThrown);
-                    }
-                });
+                // $.ajax({
+                //     url: 'http://candygram.neurology.emory.edu:8080/api/v1/item/' + current_slide +'/metadata',
+                //     type: 'PUT',
+                //     dataType: "json",
+                //     contentType: "application/json",
+                //     headers: {'Girder-Token': 'jXmOkbX3pHphEnG4mU2RdMX8IIYFFkRnK5oFuoZDEDCpKZh87Z3PGjC5mZrpfP1H'},
+                //     data: JSON.stringify({coords: pointsArr}),
+                //     success: function(result) {
+                //         console.log(result);
+                //     },
+                //     error: function(jqXHR, textStatus, errorThrown){
+                //         console.log(jqXHR);
+                //         console.log(textStatus);
+                //         console.log(errorThrown);
+                //     }//enderrr
+                // }); //endajax
 
-                 //endfor
-              }
+                
+              }//endif
 
 
                  
@@ -480,6 +480,61 @@ function drawCircle(top, left, height, width){
 
 
 
+myfunc = function(){
+ // webix.message("Test"); 
+  if(typeof canvas != "undefined")
+    canvas.clear();           
+}
+
+
+updateCoord = function(){
+  pointsArr = [];
+
+    if (typeof canvas.getObjects()[1] != "undefined"){
+      
+      for (i = 1; i<=12; i+=1){
+          var valx = Math.round(parseFloat(canvas.getObjects()[i].left + 2000)*100) / 100;
+          var valy = Math.round(parseFloat(canvas.getObjects()[i].top + 2000)*100) / 100;
+          $$("metatable").updateItem("vertex" + i, {value: "( " + valx + "," + valy + " )"});
+          pointsArr.push([valx, valy]);
+      }//endfor
+    }//endif
+
+    $$("image_metadata_table").updateItem("coord", {value: JSON.stringify(pointsArr)});
+
+
+  $.ajax({
+    url: 'http://candygram.neurology.emory.edu:8080/api/v1/item/' + current_slide +'/metadata',
+    type: 'PUT',
+    dataType: "json",
+    contentType: "application/json",
+    headers: {'Girder-Token': 'jXmOkbX3pHphEnG4mU2RdMX8IIYFFkRnK5oFuoZDEDCpKZh87Z3PGjC5mZrpfP1H'},
+    data: JSON.stringify({coords: pointsArr}),
+    success: function(result) {
+        console.log(result);
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+        //console.log(jqXHR);
+        //console.log(textStatus);
+        console.log(errorThrown);
+    }//enderrr
+  }); //endajax
+
+
+    
+   
+ 
+
+
+
+
+
+}//end updateCoord
+
+
+
+var clear = {id: "myButton", view:"button", label:"Clear", click:"myfunc"};
+var register = {id: "myButton2", view:"button", label:"Register", click:"updateCoord"}
 
 
 
@@ -493,17 +548,15 @@ function drawCircle(top, left, height, width){
         headerAlt: "Expand the view",
         body: {
             rows: [
-                 dropdown, thumbPager, thumbnailsPanel, filter, scroll, group, button1,group2,{height:10}, group3, {id: "myButton", view:"button", label:"Clear", click:"myfunc"}
+                 dropdown, thumbPager, thumbnailsPanel, button1, register, clear, filter, scroll, group, group2,{height:10}
             ]
         },
         width: 220
     };
 
-myfunc = function(){
-           // webix.message("Test"); 
-          if(typeof canvas != "undefined")
-            canvas.clear();           
-        }
+
+
+
    
 
   

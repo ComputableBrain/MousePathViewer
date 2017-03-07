@@ -1,4 +1,4 @@
-define("ui/metadata", function() {
+define("ui/metadata",["jquery", "webix"], function($) {
 
     var meta = {
         view: "window",
@@ -34,7 +34,10 @@ define("ui/metadata", function() {
                         id: "value",
                         header: "Value",
                         fillspace: true
-                    }]
+                    }],
+                    data: [
+                            {id:"coord", key:"Coordinates", value: "hello"}
+                            ],
                 }, {
                     view: "datatable",
                     width: 800,
@@ -75,6 +78,12 @@ define("ui/metadata", function() {
             }]
         }
     }
+
+ 
+
+
+
+
 
     return {
         view: meta

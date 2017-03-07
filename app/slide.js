@@ -29,6 +29,11 @@ define("slide", ["pubsub", "config", "overlay", "jquery","zoomer", "fabricjs", "
             // this.initDataViews();
 
             // pubsub.publish("SLIDE", this);
+            //console.log(item);
+            if (typeof item.meta != "undefined"){
+                $$("image_metadata_table").updateItem("coord", {value: item.meta.coords});
+            }
+            //console.log($$("image_metadata_table"));
             return this;
         },
 
