@@ -412,7 +412,10 @@ function drawCircle(top, left, height, width){
                 $.ajax({
                     url: 'http://candygram.neurology.emory.edu:8080/api/v1/item/' + current_slide +'/metadata',
                     type: 'PUT',
-                    data: pointsArr,
+                    dataType: "json",
+                    contentType: "application/json",
+                    headers: {'Girder-Token': 'jXmOkbX3pHphEnG4mU2RdMX8IIYFFkRnK5oFuoZDEDCpKZh87Z3PGjC5mZrpfP1H'},
+                    data: JSON.stringify({coords: pointsArr}),
                     success: function(result) {
                         console.log(result);
                     },
