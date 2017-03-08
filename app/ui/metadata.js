@@ -36,7 +36,8 @@ define("ui/metadata",["jquery", "webix"], function($) {
                         fillspace: true
                     }],
                     data: [
-                            {id:"coord", key:"Coordinates", value: "hello"}
+                            {id:"coord", key:"Coordinates", value: "hello"},
+                            {id:"canvas", key:"Canvas Object",height: "500px", value: "hello"}
                             ],
                 }, {
                     view: "datatable",
@@ -79,6 +80,9 @@ define("ui/metadata",["jquery", "webix"], function($) {
         }
     }
 
+    
+
+    
  
 
 

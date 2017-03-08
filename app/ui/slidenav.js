@@ -1,5 +1,6 @@
 define("ui/slidenav", ["config", "slide", "jquery", "overlay", "webix"], function(config, slide, $, overlay) {
     var current_slide = '58b59ed892ca9a000beee3e8';
+    var previous_slide = '58b59ed892ca9a000beee3e8';
 
     thumbnailsPanel = {
         view: "dataview",
@@ -15,11 +16,50 @@ define("ui/slidenav", ["config", "slide", "jquery", "overlay", "webix"], functio
         },
         on: {
             "onItemClick": function(id, e, node) {
-                
-                item = this.getItem(id);
+                previous_slide = current_slide;
+                item = this.getItem(id);                
                 current_slide = item._id;
-                console.log(current_slide);
-                slide.init(item);
+                //console.log(current_slide);
+                slide.init(item); 
+                console.log(canvas);
+
+                var callback = function(data, status, jqXHR){
+                  if (typeof data.meta.canvas != "undefined"){                    
+                    canvas.clear();
+                    //console.log(data.meta.canvas);
+                    var jsonData = JSON.stringify(data.meta.canvas);
+                    canvas.loadFromJSON(jsonData, canvas.renderAll.bind(canvas));
+                    
+                  }
+
+                }
+
+
+                var callback1 = function(data, status, jqXHR){ 
+                  if (typeof data.meta.canvas != "undefined"){                    
+                    canvas.clear();
+                    //console.log(data.meta.canvas);
+                    //canvas.add(data.meta.canvas)
+                  } else {
+
+                     $.get('http://candygram.neurology.emory.edu:8080/api/v1/item/'+previous_slide, callback, "json");    
+
+
+                  }
+                }
+
+               $.get('http://candygram.neurology.emory.edu:8080/api/v1/item/'+current_slide, callback1, "json");   
+
+
+                
+                // var callback2 = function(data, status, jqXHR){ 
+                //   if (typeof data.meta.canvas != "undefined"){
+                //     // console.log(data.meta.canvas); 
+                //     // console.log(overlay.canvas);
+                //     //overlay.canvas.add(data.meta.canvas[1]); 
+                //   }
+                // }
+                // $.get('http://candygram.neurology.emory.edu:8080/api/v1/item/'+previous_slide, callback2, "json");
 
                 
             }
@@ -398,6 +438,10 @@ function drawCircle(top, left, height, width){
               // } 
               pointsArr = [];
 
+              if (typeof canvas == "undefined"){
+                return;
+              }
+
               if (typeof canvas.getObjects()[1] != "undefined"){
                 
                 for (i = 1; i<=12; i+=1){
@@ -490,6 +534,10 @@ myfunc = function(){
 updateCoord = function(){
   pointsArr = [];
 
+    if (typeof canvas == "undefined"){
+      return;
+    }
+
     if (typeof canvas.getObjects()[1] != "undefined"){
       
       for (i = 1; i<=12; i+=1){
@@ -501,7 +549,7 @@ updateCoord = function(){
     }//endif
 
     $$("image_metadata_table").updateItem("coord", {value: JSON.stringify(pointsArr)});
-
+    $$("image_metadata_table").updateItem("canvas", {value: JSON.stringify(canvas.getObjects())});
 
   $.ajax({
     url: 'http://candygram.neurology.emory.edu:8080/api/v1/item/' + current_slide +'/metadata',
@@ -509,7 +557,7 @@ updateCoord = function(){
     dataType: "json",
     contentType: "application/json",
     headers: {'Girder-Token': 'jXmOkbX3pHphEnG4mU2RdMX8IIYFFkRnK5oFuoZDEDCpKZh87Z3PGjC5mZrpfP1H'},
-    data: JSON.stringify({coords: pointsArr}),
+    data: JSON.stringify({coords: pointsArr, canvas: canvas.getObjects()}),
     success: function(result) {
         console.log(result);
     },
