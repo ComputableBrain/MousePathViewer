@@ -21,14 +21,14 @@ define("ui/slidenav", ["config", "slide", "jquery", "overlay", "webix"], functio
                 current_slide = item._id;
                 //console.log(current_slide);
                 slide.init(item); 
-                console.log(canvas);
+                //console.log(canvas);
 
                 var callback = function(data, status, jqXHR){
                   if (typeof data.meta.canvas != "undefined"){                    
                     canvas.clear();
-                    //console.log(data.meta.canvas);
-                    var jsonData = JSON.stringify(data.meta.canvas);
-                    canvas.loadFromJSON(jsonData, canvas.renderAll.bind(canvas));
+                    console.log(data.meta.canvas);
+                    //var jsonData = JSON.stringify(data.meta.canvas);
+                    //canvas.loadFromJSON(jsonData, canvas.renderAll.bind(canvas));
                     
                   }
 
@@ -38,9 +38,12 @@ define("ui/slidenav", ["config", "slide", "jquery", "overlay", "webix"], functio
                 var callback1 = function(data, status, jqXHR){ 
                   if (typeof data.meta.canvas != "undefined"){                    
                     canvas.clear();
+                    console.log("cb1 undefined");
+                    canvas.loadFromJSON(data.meta.canvas, canvas.renderAll.bind(canvas));
                     //console.log(data.meta.canvas);
                     //canvas.add(data.meta.canvas)
                   } else {
+                    console.log("cb1 defined")
 
                      $.get('http://candygram.neurology.emory.edu:8080/api/v1/item/'+previous_slide, callback, "json");    
 
@@ -557,7 +560,7 @@ updateCoord = function(){
     dataType: "json",
     contentType: "application/json",
     headers: {'Girder-Token': 'jXmOkbX3pHphEnG4mU2RdMX8IIYFFkRnK5oFuoZDEDCpKZh87Z3PGjC5mZrpfP1H'},
-    data: JSON.stringify({coords: pointsArr, canvas: canvas.getObjects()}),
+    data: JSON.stringify({coords: pointsArr, canvas: canvas.toJSON()}),
     success: function(result) {
         console.log(result);
     },
