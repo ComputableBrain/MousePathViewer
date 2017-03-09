@@ -346,7 +346,7 @@ group2 = {rows:
 
 button1 = {
     view: "button",
-    label: "Draggable",
+    label: "Draw",
     on: {
         'onItemClick': function(id, e) {
      
