@@ -43,6 +43,69 @@ define("ui/slidenav", ["config", "slide", "jquery", "overlay", "webix"], functio
 
 
 
+function updateCircle(top, left, height, width, scaleX, scaleY){
+
+
+//Circle 1
+  leftCorner = left -2000 - (width * scaleX / 2);
+  topCorner = top - 2000 - (height * scaleY / 2);
+
+  //Circle 2
+  leftCorner2 = leftCorner + (width * scaleX / 3);
+
+  //Circle 3
+  leftCorner3 = leftCorner + (2 * width * scaleX/ 3);
+
+  //Circle 4
+  leftCorner4 = leftCorner + (width * scaleX);
+
+  //Circle 5-8 top
+  topMiddle = top - 2000;
+
+  //Circle 9-12 top 
+  topTop = top - 2000 + (height * scaleY / 2)
+  
+  canvas._objects[1].set({left: leftCorner, top: topCorner});
+  canvas._objects[2].set({left: leftCorner2, top: topCorner});
+  canvas._objects[3].set({left: leftCorner3, top: topCorner});
+  canvas._objects[4].set({left: leftCorner4, top: topCorner});
+  canvas._objects[5].set({left: leftCorner, top: topMiddle});
+  canvas._objects[6].set({left: leftCorner2, top: topMiddle});
+  canvas._objects[7].set({left: leftCorner3, top: topMiddle});
+  canvas._objects[8].set({left: leftCorner4, top: topMiddle});
+  canvas._objects[9].set({left: leftCorner, top: topTop});
+  canvas._objects[10].set({left: leftCorner2, top: topTop});
+  canvas._objects[11].set({left: leftCorner3, top: topTop});
+  canvas._objects[12].set({left: leftCorner4, top: topTop});
+
+  canvas.renderAll();
+
+
+
+
+}//endUpdatecircle
+
+
+
+var masterHandler = function (evt) {
+    //var movingObject = evt.target;
+    //console.log(movingObject.get('left'), movingObject.get('top'));
+    
+    //console.log("ScaleX = " + canvas._objects[0].scaleX );
+    //console.log("ScaleY = " + canvas._objects[0].scaleY );
+
+    updateCircle(canvas._objects[0].top, canvas._objects[0].left, canvas._objects[0].height, canvas._objects[0].width, canvas._objects[0].scaleX, canvas._objects[0].scaleY);
+
+    //Redraw circlesS
+
+
+    //Render
+    //canvas.renderAll();
+
+
+}
+
+
 
 
 
@@ -71,8 +134,11 @@ define("ui/slidenav", ["config", "slide", "jquery", "overlay", "webix"], functio
                   if (("meta" in data) && ("canvas" in data.meta)){                    
                     canvas.clear();
                     console.log("Previous Slide ID: " + previous_slide); 
-                    callTracker();                   
+                                     
                     canvas.loadFromJSON(data.meta.canvas, canvas.renderAll.bind(canvas));
+                    callTracker();  
+                    canvas.on('object:moving', masterHandler);
+                    canvas.on('object:scaling', masterHandler);
                     
                   }
 
@@ -85,6 +151,9 @@ define("ui/slidenav", ["config", "slide", "jquery", "overlay", "webix"], functio
                     console.log("Current Slide ID: " + current_slide);
                     callTracker();
                     canvas.loadFromJSON(data.meta.canvas, canvas.renderAll.bind(canvas));
+                    callTracker();  
+                    canvas.on('object:moving', masterHandler);
+                    canvas.on('object:scaling', masterHandler);
                     //console.log(data.meta.canvas);
                     //canvas.add(data.meta.canvas)
                   } else {

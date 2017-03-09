@@ -235,7 +235,7 @@ function updateCircle(top, left, height, width, scaleX, scaleY){
 }
 
 var masterHandler = function (evt) {
-    var movingObject = evt.target;
+    //var movingObject = evt.target;
     //console.log(movingObject.get('left'), movingObject.get('top'));
     
     //console.log("ScaleX = " + canvas._objects[0].scaleX );
