@@ -2,6 +2,50 @@ define("ui/slidenav", ["config", "slide", "jquery", "overlay", "webix"], functio
     var current_slide = '58b59ed892ca9a000beee3e8';
     var previous_slide = '58b59ed892ca9a000beee3e8';
 
+    function callTracker(){
+
+        var tracker = new OpenSeadragon.MouseTracker({
+            element: viewer.container,
+            moveHandler: function(event) {
+                var webPoint = event.position;
+                var viewportPoint = viewer.viewport.pointFromPixel(webPoint);
+                var imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
+                var zoom = viewer.viewport.getZoom(true);
+                var imageZoom = viewer.viewport.viewportToImageZoom(zoom);
+                
+                $$("metatable").updateItem("web_point", {value: webPoint.toString()});
+                $$("metatable").updateItem("image_point", {value: imagePoint.toString()});
+                $$("metatable").updateItem("viewport_point", {value: viewportPoint.toString()});
+
+                $$("metatable").updateItem("zoom", {value: (Math.round(zoom * 100) / 100)});
+                $$("metatable").updateItem("image_zoom", {value: (Math.round(imageZoom * 100) / 100)});
+          
+               
+
+                if (typeof canvas == "undefined"){
+                  return;
+
+                }
+
+
+                if (typeof canvas.getObjects()[1] != "undefined"){
+                  
+                  for (i = 1; i<=12; i+=1){
+                      var valx = Math.round(parseFloat(canvas.getObjects()[i].left + 2000)*100) / 100;
+                      var valy = Math.round(parseFloat(canvas.getObjects()[i].top + 2000)*100) / 100;
+                      $$("metatable").updateItem("vertex" + i, {value: "( " + valx + "," + valy + " )"});
+                      
+                  }//endfor                
+                }//endif 
+            }// end moveHandler
+        }); //end MouseTracker
+}//endfunction
+
+
+
+
+
+
     thumbnailsPanel = {
         view: "dataview",
         id: "thumbnails_panel",
@@ -24,11 +68,11 @@ define("ui/slidenav", ["config", "slide", "jquery", "overlay", "webix"], functio
                 //console.log(canvas);
 
                 var callback = function(data, status, jqXHR){
-                  if (typeof data.meta.canvas != "undefined"){                    
+                  if (("meta" in data) && ("canvas" in data.meta)){                    
                     canvas.clear();
-                    console.log(data.meta.canvas);
-                    //var jsonData = JSON.stringify(data.meta.canvas);
-                    //canvas.loadFromJSON(jsonData, canvas.renderAll.bind(canvas));
+                    console.log("Previous Slide ID: " + previous_slide); 
+                    callTracker();                   
+                    canvas.loadFromJSON(data.meta.canvas, canvas.renderAll.bind(canvas));
                     
                   }
 
@@ -36,14 +80,15 @@ define("ui/slidenav", ["config", "slide", "jquery", "overlay", "webix"], functio
 
 
                 var callback1 = function(data, status, jqXHR){ 
-                  if (typeof data.meta.canvas != "undefined"){                    
+                  if (("meta" in data) && ("canvas" in data.meta)){                    
                     canvas.clear();
-                    console.log("cb1 undefined");
+                    console.log("Current Slide ID: " + current_slide);
+                    callTracker();
                     canvas.loadFromJSON(data.meta.canvas, canvas.renderAll.bind(canvas));
                     //console.log(data.meta.canvas);
                     //canvas.add(data.meta.canvas)
                   } else {
-                    console.log("cb1 defined")
+                    
 
                      $.get('http://candygram.neurology.emory.edu:8080/api/v1/item/'+previous_slide, callback, "json");    
 
@@ -409,80 +454,7 @@ function drawCircle(top, left, height, width){
 
 
 
-    //viewer.addHandler('open', function() {
-
-        var tracker = new OpenSeadragon.MouseTracker({
-            element: viewer.container,
-            moveHandler: function(event) {
-                var webPoint = event.position;
-                var viewportPoint = viewer.viewport.pointFromPixel(webPoint);
-                var imagePoint = viewer.viewport.viewportToImageCoordinates(viewportPoint);
-                var zoom = viewer.viewport.getZoom(true);
-                var imageZoom = viewer.viewport.viewportToImageZoom(zoom);
-
-                // document.getElementById("position").innerHTML = 'Web:<br>' + webPoint.toString() + 
-                //     '<br><br>Viewport:<br>' + viewportPoint.toString() +
-                //     '<br><br>Image:<br>' + imagePoint.toString() + '<br><br>Zoom:<br>' + (Math.round(zoom * 100) / 100) + 
-                // '<br><br>Image Zoom:<br>' + (Math.round(imageZoom * 100) / 100); 
-
-                
-                $$("metatable").updateItem("web_point", {value: webPoint.toString()});
-                $$("metatable").updateItem("image_point", {value: imagePoint.toString()});
-                $$("metatable").updateItem("viewport_point", {value: viewportPoint.toString()});
-
-                $$("metatable").updateItem("zoom", {value: (Math.round(zoom * 100) / 100)});
-                $$("metatable").updateItem("image_zoom", {value: (Math.round(imageZoom * 100) / 100)});
-
-
-              // document.getElementById("coord").innerHTML = "";
-
-              // for (i = 1; i<=12; i+=1){
-              //   document.getElementById("coord").innerHTML += 'Vertex' + i + '<br>(' + parseFloat(canvas.getObjects()[i].left + 2000) + ',' + parseFloat(canvas.getObjects()[i].top + 2000) + ')<br><br>';
-              // } 
-              pointsArr = [];
-
-              if (typeof canvas == "undefined"){
-                return;
-              }
-
-              if (typeof canvas.getObjects()[1] != "undefined"){
-                
-                for (i = 1; i<=12; i+=1){
-                    var valx = Math.round(parseFloat(canvas.getObjects()[i].left + 2000)*100) / 100;
-                    var valy = Math.round(parseFloat(canvas.getObjects()[i].top + 2000)*100) / 100;
-                    $$("metatable").updateItem("vertex" + i, {value: "( " + valx + "," + valy + " )"});
-                    pointsArr.push([valx, valy]);
-
-
-                }//endfor
-
-                // $.ajax({
-                //     url: 'http://candygram.neurology.emory.edu:8080/api/v1/item/' + current_slide +'/metadata',
-                //     type: 'PUT',
-                //     dataType: "json",
-                //     contentType: "application/json",
-                //     headers: {'Girder-Token': 'jXmOkbX3pHphEnG4mU2RdMX8IIYFFkRnK5oFuoZDEDCpKZh87Z3PGjC5mZrpfP1H'},
-                //     data: JSON.stringify({coords: pointsArr}),
-                //     success: function(result) {
-                //         console.log(result);
-                //     },
-                //     error: function(jqXHR, textStatus, errorThrown){
-                //         console.log(jqXHR);
-                //         console.log(textStatus);
-                //         console.log(errorThrown);
-                //     }//enderrr
-                // }); //endajax
-
-                
-              }//endif
-
-
-                 
-
-
-            }// end moveHandler
-        }); //end MouseTracker
-  //}
+   callTracker();
 //); 
 
 

@@ -12,7 +12,7 @@ require = {
         "zoomer": "app/zoomer",
         "slide": "app/slide",
         "app": "app/app",
-		"fabricjs":"lib/fabricjs.min",
+		"fabricjs":"lib/fabricjs",
 		"fabricoverlay": "lib/openseadragon-fabricjs-overlay",
 		"overlay": "app/overlay"
 		
