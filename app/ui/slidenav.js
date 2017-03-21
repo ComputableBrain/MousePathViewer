@@ -328,7 +328,12 @@ clickHandler = function(){
   }
 }
 
-group = {cols: [{view:"button", label:"Group"}, {view:"button", label:"UnGroup"}]};
+
+
+
+
+
+
 
 group2 = {rows: 
 			[
@@ -537,6 +542,123 @@ function drawCircle(top, left, height, width){
 }; //button
 
 
+function drawCircle(top, left, height, width){
+
+  //Circle 1
+  leftCorner = left -2000 - (width / 2);
+  topCorner = top - 2000 - (height / 2);
+
+  //Circle 2
+  leftCorner2 = leftCorner + (width / 3);
+
+  //Circle 3
+  leftCorner3 = leftCorner + (2 * width / 3);
+
+  //Circle 4
+  leftCorner4 = leftCorner + width;
+
+  //Circle 5-8 top
+  topMiddle = top - 2000;
+
+  //Circle 9-12 top 
+  topTop = top - 2000 + (height / 2)
+  
+  var circle1 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner, top: topCorner
+  });
+  canvas.add(circle1);
+
+  var circle2 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner2, top: topCorner
+  });
+  canvas.add(circle2);
+
+  var circle3 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner3, top: topCorner
+  });
+  canvas.add(circle3);
+
+  var circle4 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner4, top: topCorner
+  });
+  canvas.add(circle4);
+
+  var circle5 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner, top: topMiddle
+  });
+  canvas.add(circle5);
+
+  var circle6 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner2, top: topMiddle
+  });
+  canvas.add(circle6);
+
+  var circle7 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner3, top: topMiddle
+  });
+  canvas.add(circle7);
+
+  var circle8 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner4, top: topMiddle
+  });
+  canvas.add(circle8);
+
+  var circle9 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner, top: topTop
+  });
+  canvas.add(circle9);
+
+  var circle10 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner2, top: topTop
+  });
+  canvas.add(circle10);
+
+  var circle11 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner3, top: topTop
+  });
+  canvas.add(circle11);
+
+  var circle12 = new fabric.Circle({
+      radius: 2000, fill: 'green', lockScalingX: true, lockScalingY: true, left: leftCorner4, top: topTop
+  });
+  canvas.add(circle12);
+}//end drawCircle
+
+
+
+
+
+
+ungroupFunction = function(){
+  
+  var items = group._objects;
+  group._restoreObjectsState();
+  canvas.remove(group);
+
+  
+
+  for(var i = 0; i < items.length; i++) {
+    canvas.add(items[i]);
+  }
+
+  canvas.renderAll();
+}
+
+groupFunction = function(){
+
+  canvas.clear();
+  canvas.add(group);
+  drawCircle(group.top, group.left, group.height, group.width);
+
+
+
+}
+
+
+
+
+grouplayout = {cols: [{view:"button", label:"Group", click:groupFunction}, {view:"button", label:"UnGroup", click: ungroupFunction}]};
+
 // var slideSelect = { cols:[
 //     { id: "tree", view:"button", label:"Prev", type: "prev", autowidth:true, click: filter_tree},
 //     {},
@@ -640,7 +762,7 @@ var register = {id: "myButton2", view:"button", label:"Register", click:"updateC
         headerAlt: "Expand the view",
         body: {
             rows: [
-                 dropdown, thumbPager, thumbnailsPanel, button1, register, clear, filter, scroll, group, group2,{height:10}
+                 dropdown, thumbPager, thumbnailsPanel, button1, register, clear, filter, scroll, grouplayout, group2,{height:10}
             ]
         },
         width: 220
